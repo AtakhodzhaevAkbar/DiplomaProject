@@ -121,9 +121,21 @@ class FirstMissionFragment : Fragment() {
 
         binding.btnSecond.setOnClickListener {
             when (state) {
-                1 -> {
+                0 -> {
                     binding.headerImage.setImageResource(R.drawable.caravan)
-                    binding.title.text = "Вы отправились к каравану"
+                    binding.title.text = "Вы решили не покупать снаряжение и отправились к каравану"
+                    binding.subhead.text = "Вы встретили караван"
+                    binding.body.text = "Вы встретились с караваном и отправились в путь вместе с ними в качестве их охраны"
+                    binding.dmg.text = "${dmg}dmg"
+                    binding.health.text = "${health}HP"
+                    binding.gold.text = "${gold}gold"
+                    binding.btnFirst.text = "Продолжить"
+                    binding.btnSecond.visibility = View.GONE
+                    state = 2
+                }
+                1->{
+                    binding.headerImage.setImageResource(R.drawable.caravan)
+                    binding.title.text = "Вы решили не покупать снаряжение и отправились к каравану"
                     binding.subhead.text = "Вы встретили караван"
                     binding.body.text = "Вы встретились с караваном и отправились в путь вместе с ними в качестве их охраны"
                     binding.dmg.text = "${dmg}dmg"
@@ -151,4 +163,5 @@ class FirstMissionFragment : Fragment() {
             }
         }
     }
+
 }

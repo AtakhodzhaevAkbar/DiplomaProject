@@ -123,9 +123,21 @@ class SecondMissionFragment : Fragment() {
 
             binding.btnSecond.setOnClickListener {
                 when (state) {
+                    0->{
+                        binding.headerImage.setImageResource(R.drawable.camp)
+                        binding.title.text = "Вы решили не покупать снаряжение и отправились к лагерю"
+                        binding.subhead.text = "Вы заметили лагерь"
+                        binding.body.text = "Вы увидели лагерь к удивлению для вас вы видете что 1 бандит перебил всю свою банду ради всей добычи"
+                        binding.dmg.text = "${dmg}dmg"
+                        binding.health.text = "${health}HP"
+                        binding.gold.text = "${gold}gold"
+                        binding.btnFirst.text = "Продолжить"
+                        binding.btnSecond.visibility = View.GONE
+                        state = 2
+                    }
                     1 -> {
                         binding.headerImage.setImageResource(R.drawable.camp)
-                        binding.title.text = "Вы отправились к лагерю"
+                        binding.title.text = "Вы решили не покупать снаряжение и отправились к лагерю"
                         binding.subhead.text = "Вы заметили лагерь"
                         binding.body.text = "Вы увидели лагерь к удивлению для вас вы видете что 1 бандит перебил всю свою банду ради всей добычи"
                         binding.dmg.text = "${dmg}dmg"

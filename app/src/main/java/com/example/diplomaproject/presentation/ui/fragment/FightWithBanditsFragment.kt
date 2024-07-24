@@ -80,7 +80,7 @@ class FightWithBanditsFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putInt("Win", 1)
                 }
-                findNavController().navigate(R.id.action_fightWithBanditsFragment_to_endScreenFragment)
+                findNavController().navigate(R.id.action_fightWithBanditsFragment_to_endScreenFragment,bundle)
             }
         }
 
