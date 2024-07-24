@@ -30,58 +30,63 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/health"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="0HP"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
+                android:text="@string/_0hp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header_image" />
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/gold"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="0gold"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="100dp"
+                android:text="@string/_0gold"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/health"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/dmg"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="0dmg"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="200dp"
+                android:text="@string/_0dmg"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/gold"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck" />
+
             <TextView
                 android:id="@+id/banditHealth"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="0BanditHealth"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
+                android:text="@string/_0bandithealth"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnHeal"/>
+                app:layout_constraintTop_toBottomOf="@id/btnHeal"
+                tools:ignore="MissingConstraints,TextSizeCheck" />
+
             <TextView
                 android:id="@+id/banditInfo"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="Dodged"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
+                android:text="@string/dodged"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/banditHealth"/>
+                app:layout_constraintTop_toBottomOf="@id/banditHealth"
+                tools:ignore="MissingConstraints,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/title"
@@ -89,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Вы вступили в бой"
+                android:text="@string/you_entered_fight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/health" />
@@ -100,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Что вы будете делать"
+                android:text="@string/what_will_you_do"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -111,15 +116,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Против вас 1 бандит в прочных латах. У вас есть 3 действия Атака,Уклонение,Лечение. Атака нанесет удар равный 30 здоровью. Уклонение имеет шанс 50% уклонения от атаки. Лечение восстановит 20хп"
+                android:text="@string/info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subhead" />
+                app:layout_constraintTop_toBottomOf="@id/subhead"
+                tools:ignore="VisualLintLongText" />
             <Button
                 android:id="@+id/btnAttack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Атака"
+                android:text="@string/attack"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/body"/>
@@ -127,7 +133,7 @@
                 android:id="@+id/btnDodge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Уклонение"
+                android:text="@string/dodgfe"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnAttack"/>
@@ -135,7 +141,7 @@
                 android:id="@+id/btnHeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Полечиться"
+                android:text="@string/heal"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnDodge"/>

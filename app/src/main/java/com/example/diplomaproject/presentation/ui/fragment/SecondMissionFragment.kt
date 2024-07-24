@@ -1,5 +1,6 @@
 package com.example.diplomaproject.presentation.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +13,9 @@ import com.example.diplomaproject.databinding.FragmentSecondMissionBinding
 class SecondMissionFragment : Fragment() {
     private lateinit var binding: FragmentSecondMissionBinding
 
-    private var gold = "50 gold"
-    private var health = "100HP"
-    private var dmg = "20dmg"
+    private var gold = 50
+    private var health = 100
+    private var dmg = 20
     private var state = 0
 
 
@@ -31,6 +32,7 @@ class SecondMissionFragment : Fragment() {
         setupButton()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupButton() {
             binding.btnFirst.setOnClickListener {
                 when (state) {
@@ -41,36 +43,36 @@ class SecondMissionFragment : Fragment() {
                         binding.body.text = "Это добавит вам 30HP и 30DMG"
                         binding.btnFirst.text = "Купить"
                         binding.btnSecond.text = "Не покупать"
-                        binding.dmg.text = dmg
-                        binding.health.text = health
-                        binding.gold.text = gold
+                        binding.dmg.text = "${dmg}dmg"
+                        binding.health.text = "${health}HP"
+                        binding.gold.text = "${gold}gold"
                         state = 1
                     }
 
                     1 -> {
-                        gold = "10gold"
-                        health = "130HP"
-                        dmg = "50dmg"
-                        binding.headerImage.setImageResource(R.drawable.caravan)
+                        gold -= 40
+                        health += 30
+                        dmg += 30
+                        binding.headerImage.setImageResource(R.drawable.camp)
                         binding.title.text = "Вы закупились и отправились к лагерю"
                         binding.subhead.text = "Вы заметили лагерь"
                         binding.body.text = "Вы увидели лагерь к удивлению для вас вы видете что 1 бандит перебил всю свою банду ради всей добычи"
-                        binding.dmg.text = dmg
-                        binding.health.text = health
-                        binding.gold.text = gold
+                        binding.dmg.text = "${dmg}dmg"
+                        binding.health.text = "${health}HP"
+                        binding.gold.text = "${gold}gold"
                         binding.btnFirst.text = "Продолжить"
                         binding.btnSecond.visibility = View.GONE
                         state = 2
                     }
 
                     2 -> {
-                        binding.headerImage.setImageResource(R.drawable.ambush)
+                        binding.headerImage.setImageResource(R.drawable.stealth)
                         binding.title.text = "Вы тихо подходите к нему"
                         binding.subhead.text = "Вы наблюдаете за ним"
                         binding.body.text = "Вы наблюдаете за бандитом, видно что он очень хорошо экипирован и отлично натренирован. Что вы будете делать?"
-                        binding.dmg.text = dmg
-                        binding.health.text = health
-                        binding.gold.text = gold
+                        binding.dmg.text = "${dmg}dmg"
+                        binding.health.text = "${health}HP"
+                        binding.gold.text = "${gold}gold"
                         binding.btnFirst.text = "Выйти к бандиту"
                         binding.btnSecond.visibility = View.VISIBLE
                         binding.btnSecond.text = "Убежать прочь"
@@ -78,10 +80,10 @@ class SecondMissionFragment : Fragment() {
                     }
 
                     3 -> {
-                        binding.headerImage.setImageResource(R.drawable.fight_with_bandits)
+                        binding.headerImage.setImageResource(R.drawable.versus)
                         binding.title.text = "Вы вышли к бандиту"
                         binding.subhead.text = "Он заметил вас"
-                        if (gold == "10gold") {
+                        if (gold < 40) {
                             binding.body.text = "Он предлагает вам следующее: за 40 золота он может спокойно вас отпустить. У вас недостаточно денег. Что вы будете делать?"
                             binding.btnFirst.text = "Вступить в бой"
                             binding.btnSecond.text = "Убежать"
@@ -107,9 +109,9 @@ class SecondMissionFragment : Fragment() {
 
                     4 -> {
                         val bundle = Bundle().apply {
-                            putString("gold", gold)
-                            putString("health", health)
-                            putString("dmg", dmg)
+                            putInt("gold", gold)
+                            putInt("health", health)
+                            putInt("dmg", dmg)
                         }
                         findNavController().navigate(
                             R.id.action_secondMissionFragment_to_fightWithBanditsFragment,
@@ -122,23 +124,20 @@ class SecondMissionFragment : Fragment() {
             binding.btnSecond.setOnClickListener {
                 when (state) {
                     1 -> {
-                        gold = "50 gold"
-                        health = "100HP"
-                        dmg = "20dmg"
-                        binding.headerImage.setImageResource(R.drawable.caravan)
+                        binding.headerImage.setImageResource(R.drawable.camp)
                         binding.title.text = "Вы отправились к лагерю"
                         binding.subhead.text = "Вы заметили лагерь"
                         binding.body.text = "Вы увидели лагерь к удивлению для вас вы видете что 1 бандит перебил всю свою банду ради всей добычи"
-                        binding.dmg.text = dmg
-                        binding.health.text = health
-                        binding.gold.text = gold
+                        binding.dmg.text = "${dmg}dmg"
+                        binding.health.text = "${health}HP"
+                        binding.gold.text = "${gold}gold"
                         binding.btnFirst.text = "Продолжить"
                         binding.btnSecond.visibility = View.GONE
                         state = 2
                     }
 
                     3 -> {
-                        binding.headerImage.setImageResource(R.drawable.fight_with_bandits)
+                        binding.headerImage.setImageResource(R.drawable.versus)
                         binding.title.text = "Вы решили убежать в страхе"
                         binding.subhead.text = "Вы решили убежать от бандита"
                         binding.body.text = "Вы решили убежать от бандита, но из за шума он заметил вас и убил вас."

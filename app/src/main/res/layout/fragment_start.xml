@@ -30,38 +30,41 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/health"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="100HP"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
+                android:text="@string/_100hpStart"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header_image" />
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/gold"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="50gold"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="70dp"
+                android:text="@string/_50goldStart"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/health"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/dmg"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="20dmg"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="140dp"
+                android:text="@string/_20dmgStart"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/gold"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/title"
@@ -69,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Начало игры"
+                android:text="@string/started"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/health" />
@@ -80,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Желаете ли вы начать игру"
+                android:text="@string/startTheGane"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -91,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Подойти к доске заданий? Что бы взять задание. (Начало игры)"
+                android:text="@string/start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/subhead" />
@@ -99,7 +102,7 @@
                 android:id="@+id/btnFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Подойти к доске"
+                android:text="@string/go_to_dest"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/body"/>
@@ -107,7 +110,7 @@
                 android:id="@+id/btnSecond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Пройти мимо"
+                android:text="@string/miss"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnFirst"/>

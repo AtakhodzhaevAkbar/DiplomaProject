@@ -30,38 +30,41 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/health"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="100HP"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
+                android:text="@string/_100hpChoose"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header_image" />
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/gold"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="50gold"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="70dp"
+                android:text="@string/_50goldChoose"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/health"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck,VisualLintOverlap" />
+
             <TextView
                 android:id="@+id/dmg"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="20dmg"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 android:paddingStart="140dp"
+                android:text="@string/_20dmgChoose"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/gold"
-                app:layout_constraintTop_toBottomOf="@id/header_image"/>
+                app:layout_constraintTop_toBottomOf="@id/header_image"
+                tools:ignore="MissingConstraints,RtlSymmetry,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/title"
@@ -69,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Выбор задания"
+                android:text="@string/chooseMission"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/health" />
@@ -80,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Выбор первого задания"
+                android:text="@string/chooseFirst"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -91,15 +94,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Вы подходите к доске заданий и видите несколько заданий. 1. помочь перевозке груза каравану. 2.Уничтожить банду бандитов которые обустроились рядом с городом."
+                android:text="@string/_1_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subhead" />
+                app:layout_constraintTop_toBottomOf="@id/subhead"
+                tools:ignore="VisualLintLongText" />
             <Button
                 android:id="@+id/btnFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Выбрать первое задание"
+                android:text="@string/choose"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/body"/>
@@ -107,7 +111,7 @@
                 android:id="@+id/btnSecond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Выбрать второе задание"
+                android:text="@string/second"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnFirst"/>

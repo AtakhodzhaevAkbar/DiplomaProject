@@ -1,45 +1,166 @@
 package com.example.diplomaproject.presentation.ui.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.diplomaproject.data.Event
+import com.example.diplomaproject.data.api_data_source.data_model.BanditStats
+import com.example.diplomaproject.data.api_data_source.data_model.PlayerStats
+import com.example.diplomaproject.domain.repository.FightRepository
+import com.example.diplomaproject.domain.useCases.GetBanditStats
+import com.example.diplomaproject.domain.useCases.GetPlayerStats
+import com.example.diplomaproject.domain.useCases.UpdateBanditStats
+import com.example.diplomaproject.domain.useCases.UpdatePlayerStats
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
-class FightWithBanditsVM : ViewModel() {
-    private val _playerHealth = MutableLiveData<Int>()
-    val playerHealth: LiveData<Int> get() = _playerHealth
+class FightWithBanditsVM(
+    private val repository: FightRepository,
+    private val getBanditStats: GetBanditStats,
+    private val getPlayerStats: GetPlayerStats,
+    private val updateBanditStats: UpdateBanditStats,
+    private val updatePlayerStats: UpdatePlayerStats
+) : ViewModel() {
+    // ViewModel implementation
 
-    private val _playerDamage = MutableLiveData<Int>()
-    val playerDamage: LiveData<Int> get() = _playerDamage
+    private val _playerStats = MutableLiveData<PlayerStats>()
+    val playerStats: LiveData<PlayerStats> = _playerStats
 
-    private val _playerGold = MutableLiveData<Int>()
-    val playerGold: LiveData<Int> get() = _playerGold
+    private val _banditStats = MutableLiveData<BanditStats>()
+    val banditStats: LiveData<BanditStats> = _banditStats
 
-    private val _banditHealth = MutableLiveData<Int>()
-    val banditHealth: LiveData<Int> get() = _banditHealth
+    private var isDodge=false
+    private var banditDamage = 35
 
-    private val _battleStatus = MutableLiveData<String>()
-    val battleStatus: LiveData<String> get() = _battleStatus
+    private val _banditActionMessage = MutableLiveData<String>()
+    val banditActionMessage: LiveData<String> = _banditActionMessage
+
+    private val _toastMessage = MutableLiveData<Event<String>>()
+    val toastMessage: LiveData<Event<String>> = _toastMessage
+
+    private val _navigateToLose = MutableLiveData<Event<Unit>>()
+    val navigateToLose: LiveData<Event<Unit>> = _navigateToLose
+
+    private val _navigateToWin = MutableLiveData<Event<Unit>>()
+    val navigateToWin: LiveData<Event<Unit>> = _navigateToWin
 
     init {
-        _playerHealth.value = 100
-        _playerDamage.value = 20
-        _playerGold.value = 50
-        _banditHealth.value = 300
+        fetchStats()
     }
 
-    fun attack() {
-        // Логика атаки игрока
+    fun initPlayer(health: Int, damage: Int, gold: Int) {
+        val newPlayerStats = PlayerStats(health, damage, gold)
+        _playerStats.postValue(newPlayerStats)
     }
 
-    fun dodge() {
-        // Логика уклонения игрока
+    private fun fetchStats() {
+        viewModelScope.launch {
+            try {
+                _playerStats.postValue(repository.getPlayerStats())
+                _banditStats.postValue(repository.getBanditStats())
+            } catch (e: Exception) {
+
+            }
+        }
     }
 
-    fun heal() {
-        // Логика лечения игрока
+    fun updatePlayerStats(playerStats: PlayerStats) {
+        viewModelScope.launch {
+            repository.updatePlayerStats(playerStats)
+            _playerStats.postValue(playerStats)
+        }
     }
 
-    fun enemyTurn() {
-        // Логика хода врага
+    private fun checkPlayerHealth() {
+        if (_playerStats.value?.health ?: 0 <= 0) {
+            _navigateToLose.postValue(Event(Unit))
+        }
     }
+
+    private fun updateBanditStats(banditStats: BanditStats) {
+        viewModelScope.launch {
+            repository.updateBanditStats(banditStats)
+            _banditStats.postValue(banditStats)
+        }
+    }
+
+    private fun checkBanditHealth() {
+        if (_banditStats.value?.health ?: 0 <= 0) {
+            _navigateToWin.postValue(Event(Unit))
+        }
+    }
+
+    fun playerAttack() {
+        viewModelScope.launch {
+            val currentBanditStats = _banditStats.value ?: return@launch
+            val playerCurrentDamage = _playerStats.value?.damage ?: return@launch
+            val enhancedAttackChance = 20
+            val isEnhancedAttack = Random.nextInt(100) < enhancedAttackChance
+            val damageMultiplier = if (isEnhancedAttack) 2 else 1
+            val finalDamage = playerCurrentDamage * damageMultiplier
+            val updatedBanditStats = currentBanditStats.copy(health = currentBanditStats.health - finalDamage)
+            updateBanditStats(updatedBanditStats)
+            _banditStats.value = updatedBanditStats
+            if (isEnhancedAttack) {
+                _toastMessage.postValue(Event("Вы нанесли усиленный удар на $finalDamage урона"))
+            } else {
+                _toastMessage.postValue(Event("Вы атаковали противника на $finalDamage урона"))
+            }
+            enemyTurn()
+            checkPlayerHealth()
+            checkBanditHealth()
+        }
+    }
+    fun playerDodge() {
+        viewModelScope.launch {
+            isDodge = Random.nextInt(100) < 50
+            if(isDodge)
+                _toastMessage.postValue(Event("Вы увернулись от атаки"))
+            else
+                _toastMessage.postValue(Event("Вы не смогли увернуться"))
+            enemyTurn()
+            checkPlayerHealth()
+            checkBanditHealth()
+        }
+    }
+
+    fun playerHeal() {
+        viewModelScope.launch {
+            _playerStats.value = _playerStats.value?.let {
+                it.copy(health = (it.health + 20).coerceAtMost(100))
+            }
+            _toastMessage.postValue(Event("Вы восстановили 20 хп"))
+            enemyTurn()
+            checkPlayerHealth()
+            checkBanditHealth()
+        }
+    }
+
+    private fun enemyTurn() {
+        viewModelScope.launch {
+            val banditAction = Random.nextInt(3)
+            when (banditAction) {
+                0 -> {
+                    val damageToDeal = if (isDodge) 0 else banditDamage
+                    _playerStats.value = _playerStats.value?.copy(health = (_playerStats.value?.health ?: 0) - damageToDeal)
+                    _banditActionMessage.postValue("Бандит атаковал вас на $damageToDeal урона")
+                }
+                1 -> {
+                    val enhancedDamage = Random.nextInt(100) < 30
+                    val banditEffectiveDamage = if (enhancedDamage) banditDamage * 2 else banditDamage
+                    _banditStats.value = _banditStats.value?.copy(health = (_banditStats.value?.health ?: 0) - banditEffectiveDamage)
+                    _banditActionMessage.postValue("Бандит использовал критическую атаку и нанес $banditEffectiveDamage урона")
+                }
+                2 -> {
+                    _banditStats.value = _banditStats.value?.copy(health = (_banditStats.value?.health ?: 0) + 25)
+                    _banditActionMessage.postValue("Бандит полечился на 25хп")
+                }
+            }
+            checkPlayerHealth()
+            checkBanditHealth()
+            isDodge = false
+        }
+    }
+
 }
