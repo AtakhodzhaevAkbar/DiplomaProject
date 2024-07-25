@@ -22,8 +22,6 @@ class FightWithBanditsVM(
     private val updateBanditStats: UpdateBanditStats,
     private val updatePlayerStats: UpdatePlayerStats
 ) : ViewModel() {
-    // ViewModel implementation
-
     private val _playerStats = MutableLiveData<PlayerStats>()
     val playerStats: LiveData<PlayerStats> = _playerStats
 
